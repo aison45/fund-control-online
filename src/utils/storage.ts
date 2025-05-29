@@ -59,19 +59,28 @@ export const storage = {
   },
 
   // Expense Types
-  getExpenseTypes: (): ExpenseType[] => JSON.parse(localStorage.getItem(STORAGE_KEYS.EXPENSE_TYPES) || '[]'),
+  getExpenseTypes: (): ExpenseType[] => {
+    const types = JSON.parse(localStorage.getItem(STORAGE_KEYS.EXPENSE_TYPES) || '[]');
+    return types.map((t: any) => ({ ...t, createdAt: new Date(t.createdAt) }));
+  },
   saveExpenseTypes: (expenseTypes: ExpenseType[]) => {
     localStorage.setItem(STORAGE_KEYS.EXPENSE_TYPES, JSON.stringify(expenseTypes));
   },
   
   // Monetary Funds
-  getMonetaryFunds: (): MonetaryFund[] => JSON.parse(localStorage.getItem(STORAGE_KEYS.MONETARY_FUNDS) || '[]'),
+  getMonetaryFunds: (): MonetaryFund[] => {
+    const funds = JSON.parse(localStorage.getItem(STORAGE_KEYS.MONETARY_FUNDS) || '[]');
+    return funds.map((f: any) => ({ ...f, createdAt: new Date(f.createdAt) }));
+  },
   saveMonetaryFunds: (funds: MonetaryFund[]) => {
     localStorage.setItem(STORAGE_KEYS.MONETARY_FUNDS, JSON.stringify(funds));
   },
   
   // Budgets
-  getBudgets: (): Budget[] => JSON.parse(localStorage.getItem(STORAGE_KEYS.BUDGETS) || '[]'),
+  getBudgets: (): Budget[] => {
+    const budgets = JSON.parse(localStorage.getItem(STORAGE_KEYS.BUDGETS) || '[]');
+    return budgets.map((b: any) => ({ ...b, createdAt: new Date(b.createdAt) }));
+  },
   saveBudgets: (budgets: Budget[]) => {
     localStorage.setItem(STORAGE_KEYS.BUDGETS, JSON.stringify(budgets));
   },
